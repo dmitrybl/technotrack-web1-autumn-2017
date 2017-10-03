@@ -3,5 +3,6 @@ from django.shortcuts import HttpResponse
 
 # Create your views here.
 
-def helloworld(request):
-    return HttpResponse("HELLO!")
+
+def comments(request, name=None):
+    return render(request, 'comments.html', {'name': name})
