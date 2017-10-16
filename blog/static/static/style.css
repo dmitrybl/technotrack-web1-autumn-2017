@@ -1,0 +1,26 @@
+body {
+    background: url('img/images.jpg');
+    margin: 0;
+    height: 100%;
+    background-size: cover;
+}
+
+h1 {
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    color: white;
+    font-weight: 100;
+}
+
+label {
+    color: white;
+}
+
+.mybtn {
+    background-color: #FF8C00;
+    border: none;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 100;
+    font-size: 20px;
+}
+
