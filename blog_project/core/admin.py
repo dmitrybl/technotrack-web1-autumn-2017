@@ -1,13 +1,11 @@
+# -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib import admin
-from .models import *
+from core.models import User
 
-# Register your models here.
+@admin.register(User)
+class UserAdmin(BaseUserAdmin):
 
-class UserAdmin(admin.ModelAdmin):
-    list_display = [field.name for field in User._meta.fields]
-
-    class Meta:
-        model = User
-
-admin.site.register(User, UserAdmin)
+    pass
