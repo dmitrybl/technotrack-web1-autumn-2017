@@ -1,0 +1,16 @@
+<!-- DOCTYPE html -->
+<html>
+
+<body>
+<h1>{{ title }} is working</h1>
+{% for obj in object_list %}
+
+<h3><a href='{% url "posts:post_detail" id=obj.id %}'>{{ obj.title }}</a></h3>
+<li>Id: {{ obj.id }}</li>
+<li>Описание: {{ obj.content }}</li>
+<li>Created: {{ obj.timestamp }}</li>
+<li>Updated: {{ obj.updated }}</li>
+</br>
+{% endfor %}
+</body>
+</html>
