@@ -21,4 +21,11 @@ class Post(models.Model):
     def get_absolute_url(self):
         return reverse("posts:post_detail", kwargs={"id": self.id})
 
+    def edit_post(self):
+        return reverse("posts:post_update", kwargs={"id": self.id})
+
+    def delete_post(self):
+        return reverse("posts:post_delete", kwargs={"id": self.id})
+
+
 

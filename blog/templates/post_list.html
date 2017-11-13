@@ -1,0 +1,56 @@
+<!--{% extends "base.html" %}-->
+{% block style %}
+.cont {
+    margin-bottom: 20px;
+}
+.button-cont {
+    margin-top: 30px;
+}
+.btn-margin {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+.btn-new-post {
+    margin: 10px;
+}
+.navbar-margin {
+    margin-bottom: 40px;
+}
+{% endblock style %}
+
+{% block content %}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light navbar-margin">
+  <a class="navbar-brand" href="#">Android apps</a>
+
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0"></ul>
+    <form class="form-inline my-2 my-lg-0">
+        <a href="/posts/create" role="button"
+              class="btn btn-info my-2 my-sm-0">Новый пост</a>
+    </form>
+  </div>
+</nav>
+
+{% for obj in object_list %}
+<div class="cont" align="center">
+<div class='card col-sm-7'>
+    <div class="card-body">
+        <h3><a href='{{ obj.get_absolute_url }}'>{{ obj.title }}</a></h3>
+        <div class="text-left"><p><small>Создан: {{ obj.timestamp }}</small></p></div>
+        <div class="text-left"><p><small>Последнее обновление: {{ obj.updated }}</small></p></div>
+        <div class="text-left"><p>{{ obj.content|linebreaks|truncatechars:200 }}</p></div>
+        <div class="button-cont" align="right">
+            <a href="{{ obj.get_absolute_url }}" role="button"
+              class="btn btn-outline-success btn-sm btn-margin">Подробнее</a>
+            <a href="{{ obj.delete_post }}" role="button"
+              class="btn btn-outline-danger btn-sm btn-margin">Удалить пост</a>
+            <a href="{{ obj.edit_post }}" role="button"
+              class="btn btn-outline-primary btn-sm btn-margin">Редактировать</a>
+        </div>
+    </div>
+</div>
+</div>
+{% endfor %}
+
+{% endblock content %}

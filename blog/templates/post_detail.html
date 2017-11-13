@@ -1,16 +1,24 @@
-<!-- DOCTYPE html -->
-<html>
+{% extends "base.html" %}
 
-<body>
+{% block head_title %}{{ instance.title }} | {{block.super }}{% endblock head_title %}
 
-<h1>{{ title }}!</h1>
+{% block style %}
+.cont {
+    margin-top: 20px;
+}
+{% endblock style %}
 
-<h3>{{ instance.title }}</h3>
-<li>Id: {{ instance.id }}</li>
-<li>Описание: {{ instance.content }}</li>
-<li>Created: {{ instance.timestamp }}</li>
-<li>Updated: {{ instance.updated }}</li>
-</br>
+{% block content %}
 
-</body>
-</html>
+<div class="cont" align="center">
+<div class='card col-sm-7'>
+    <div class="card-body">
+        <h1>{{ instance.title }}</h1>
+        <div class="text-left"><p><small>Создан: {{ instance.timestamp }}</small></p></div>
+        <div class="text-left"><p><small>Последнее обновление: {{ instance.updated }}</small></p></div>
+        <div class="text-left"><p>{{ instance.content | linebreaks }}</p></div>
+    </div>
+</div>
+</div>
+
+{% endblock content %}
