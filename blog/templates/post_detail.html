@@ -5,6 +5,13 @@
 {% block style %}
 .cont {
     margin-top: 20px;
+    margin-bottom:20px;
+}
+.image-style {
+    width: 150px;
+    height: 150px;
+    border-radius: 10px;
+    margin: 20px;
 }
 {% endblock style %}
 
@@ -14,6 +21,7 @@
 <div class='card col-sm-7'>
     <div class="card-body">
         <h1>{{ instance.title }}</h1>
+        <img class="image-style" src="{{ instance.image.url }}">
         <div class="text-left"><p><small>Создан: {{ instance.timestamp }}</small></p></div>
         <div class="text-left"><p><small>Последнее обновление: {{ instance.updated }}</small></p></div>
         <div class="text-left"><p>{{ instance.content | linebreaks }}</p></div>

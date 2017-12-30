@@ -1,9 +1,0 @@
-{% extends "base.html" %}
-
-{% block content %}
-    <form action="" method="post" enctype="multipart/form-data">
-        {{ form }}
-        {% csrf_token %}
-        <input type="submit" value="Сохранить топик">
-    </form>
-{% endblock %}

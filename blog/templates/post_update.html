@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block style %}
+.image-style {
+    width: 150px;
+    height: 150px;
+    border-radius: 10px;
+    margin: 20px;
+}
+{% endblock style %}
+
+{% block content %}
+<h1>Редактирование поста</h1>
+
+<form method="POST" action="" enctype="multipart/form-data" id="edit_form">{% csrf_token %}
+   <div class="form-group">
+    <img src="{{ instance.image.url }}" class="image-style">
+  </div>
+
+  <div class="form-group">
+    <label for="exampleFormControlInput1">Изменить иконку</label>
+    <input name="{{ form.image.name }}" type="file">
+  </div>
+
+  <div class="form-group">
+    <label for="exampleFormControlInput1">Название приложения</label>
+    <input name="{{ form.title.name }}" class="form-control" id="exampleFormControlInput1"
+    value="{{ instance.title }}">
+  </div>
+
+  <div class="form-group">
+    <label for="exampleFormControlTextarea1">Описание</label>
+    <textarea form="edit_form" name="{{ form.content.name }}" class="form-control"
+              id="exampleFormControlTextarea1" rows="10">{{ instance.content }}</textarea>
+  </div>
+    <button class="btn btn-success" type='submit'>Изменить</button>
+</form>
+
+{% endblock content %}

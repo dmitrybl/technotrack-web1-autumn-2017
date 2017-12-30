@@ -5,6 +5,7 @@
 }
 .button-cont {
     margin-top: 30px;
+    margin-bottom: 15px;
 }
 .btn-margin {
     margin-left: 5px;
@@ -16,12 +17,22 @@
 .navbar-margin {
     margin-bottom: 40px;
 }
+.image-style {
+    width: 150px;
+    height: 150px;
+    border-radius: 10px;
+    margin: 20px;
+}
 {% endblock style %}
 
 {% block content %}
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-margin">
   <a class="navbar-brand" href="#">Android apps</a>
+    <form method="GET" action="" class="form-inline">
+    <input class="form-control mr-sm-2" name="s" type="text" value="{{ request.GET.s}}" placeholder="Найти посты">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
+  </form>
 
   <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0"></ul>
@@ -37,6 +48,7 @@
 <div class='card col-sm-7'>
     <div class="card-body">
         <h3><a href='{{ obj.get_absolute_url }}'>{{ obj.title }}</a></h3>
+        <img class="image-style" src="{{ obj.image.url }}">
         <div class="text-left"><p><small>Создан: {{ obj.timestamp }}</small></p></div>
         <div class="text-left"><p><small>Последнее обновление: {{ obj.updated }}</small></p></div>
         <div class="text-left"><p>{{ obj.content|linebreaks|truncatechars:200 }}</p></div>
@@ -52,5 +64,21 @@
 </div>
 </div>
 {% endfor %}
+
+<div class="pagination navbar-margin">
+    <span class="step-links">
+        {% if object_list.has_previous %}
+            <a href="?page={{ object_list.previous_page_number }}&s={{ request.GET.s }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}
+        </span>
+
+        {% if object_list.has_next %}
+            <a href="?page={{ object_list.next_page_number }}&s={{ request.GET.s }}">next</a>
+        {% endif %}
+    </span>
+</div>
 
 {% endblock content %}

@@ -1,21 +1,25 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Новый топик</h1>
+<h1>Создание поста</h1>
 
-<form method="POST" action="" id="edit_form">{% csrf_token %}
+<form method="POST" action="" enctype="multipart/form-data" id="edit_form">{% csrf_token %}
+  <div class="form-group">
+    <label for="exampleFormControlInput1">Иконка приложения</label>
+    <input name="{{ form.image.name }}" type="file">
+  </div>
+
   <div class="form-group">
     <label for="exampleFormControlInput1">Название приложения</label>
-    <input name="{{ form.title.name }}" class="form-control" id="exampleFormControlInput1"
-    value="{{ instance.title }}">
+    <input name="{{ form.title.name }}" class="form-control" id="exampleFormControlInput1">
   </div>
 
   <div class="form-group">
     <label for="exampleFormControlTextarea1">Описание</label>
     <textarea form="edit_form" name="{{ form.content.name }}" class="form-control"
-              id="exampleFormControlTextarea1" rows="10">{{ instance.content }}</textarea>
+              id="exampleFormControlTextarea1" rows="10"></textarea>
   </div>
-    <button class="btn btn-success" type='submit'>Создать/Изменить</button>
+    <button class="btn btn-success" type='submit'>Создать</button>
 </form>
 
 {% endblock content %}
