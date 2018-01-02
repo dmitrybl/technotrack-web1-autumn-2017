@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load crispy_forms_tags %}
 {% block head_title %}{{ instance.title }} | {{block.super }}{% endblock head_title %}
 
 {% block style %}
@@ -13,6 +13,17 @@
     border-radius: 10px;
     margin: 20px;
 }
+.comment_title {
+    color: #483D8B;
+}
+.reply_title {
+    color: #0000CD;
+}
+.reply_content {
+    margin-left: 10%;
+    margin-bottom: 7%;
+    padding: 10px;
+}
 {% endblock style %}
 
 {% block content %}
@@ -22,11 +33,77 @@
     <div class="card-body">
         <h1>{{ instance.title }}</h1>
         <img class="image-style" src="{{ instance.image.url }}">
+        {% if instance.user.get_full_name %}
+        <div class="text-left"><p><small>Автор: {{ instance.user.get_full_name }}</small></p></div>
+        {% endif %}
         <div class="text-left"><p><small>Создан: {{ instance.timestamp }}</small></p></div>
         <div class="text-left"><p><small>Последнее обновление: {{ instance.updated }}</small></p></div>
         <div class="text-left"><p>{{ instance.content | linebreaks }}</p></div>
     </div>
+
+    <script>
+        $(".comment-reply-btn").click(function(event) {
+            event.preventDefault();
+            $(this).parent().next(".comment-reply").fadeToggle();
+        });
+    </script>
+
+    <div>
+        <p class="text-left">Опубликовать комментарий</p>
+        <form class="text-left" method="POST" action="."> {% csrf_token %}
+            {{ comment_form|crispy }}
+            <br/>
+            <input type="submit" value="Опубликовать" class="btn btn-info">
+        </form>
+        <h3>Комментарии</h3>
+        <hr/>
+        {% for comment in comments %}
+
+        <div class="text-left">
+            <p class="comment_title"><small>Пользователь {{ comment.user }} прокомментировал | {{ comment.timestamp|timesince }} ago |
+                <a href="#" class="comment-answers-btn" style="color:#8B4513;">{{ comment.children.count }} comments</a> | <a style="color:#800000;" class="comment-reply-btn" href="#">Reply</a></small></p>
+            <p>{{ comment.content }}</p>
+
+            <div class="form-reply" style="display:none;">
+                <form method="POST" action="."> {% csrf_token %}
+                    {{ comment_form|crispy }}
+                    <br/>
+                    <input type="hidden" name="parent_id" value="{{ comment.id }}">
+                    <input type="submit" value="Reply" class="btn btn-primary">
+                </form>
+            </div>
+
+            <div class="comment-reply" style="display:none;">
+                {% for child_comment in comment.children %}
+                <div class="card reply_content">
+                <p class="reply_title"><small>Пользователь {{ comment.user }} ответил {{ child_comment.user }} | {{ child_comment.timestamp|timesince }} ago:</small></p>
+                <p>{{ child_comment.content }}</p>
+                </div>
+                {% endfor %}
+            </div>
+
+        </div>
+        <hr/>
+        {% endfor %}
+
+    </div>
 </div>
-</div>
+
+<script>
+        $(".comment-reply-btn").click(function(event) {
+            event.preventDefault();
+            $(this).closest("div").children(".form-reply").fadeToggle();
+        });
+        $(".comment-answers-btn").click(function(event) {
+            event.preventDefault();
+            $(this).closest("div").children(".comment-reply").fadeToggle();
+        });
+
+        $(document).ready(function(){
+            $("textarea").attr({"rows": "4",
+                        "cols": "40"
+        });
+});
+</script>
 
 {% endblock content %}

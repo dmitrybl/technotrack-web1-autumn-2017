@@ -49,6 +49,9 @@
     <div class="card-body">
         <h3><a href='{{ obj.get_absolute_url }}'>{{ obj.title }}</a></h3>
         <img class="image-style" src="{{ obj.image.url }}">
+        {% if instance.user.get_full_name %}
+        <div class="text-left"><p><small>Автор: {{ instance.user.get_full_name }}</small></p></div>
+        {% endif %}
         <div class="text-left"><p><small>Создан: {{ obj.timestamp }}</small></p></div>
         <div class="text-left"><p><small>Последнее обновление: {{ obj.updated }}</small></p></div>
         <div class="text-left"><p>{{ obj.content|linebreaks|truncatechars:200 }}</p></div>

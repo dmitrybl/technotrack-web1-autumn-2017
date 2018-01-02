@@ -3,7 +3,7 @@
 <html>
     <head>
         <title>{% block head_title %}My blog{% endblock head_title %}</title>
-
+        <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
               integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
@@ -13,7 +13,7 @@
             {% block style %}{% endblock style %}
         </style>
     </head>
-<body>
+<body style="background-color:#FFF5EE;">
 
 <div class='container'>{% block content %}{% endblock content %}</div>
 
