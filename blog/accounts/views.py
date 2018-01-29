@@ -21,7 +21,7 @@ def login_view(request):
     return render(request, "form.html", {"form": form, "title": title})
 
 def register_view(request):
-    title = "Register"
+    title = "Sign Up"
     form = UserRegisterForm(request.POST or None)
     if form.is_valid():
         user = form.save(commit=False)

@@ -68,7 +68,7 @@
 
         <div class="text-left">
             <p class="comment_title"><small>Пользователь {{ comment.user }} прокомментировал | {{ comment.timestamp|timesince }} ago |
-                <a href="#" class="comment-answers-btn" style="color:#8B4513;">{{ comment.children.count }} comments</a> | <a style="color:#800000;" class="comment-reply-btn" href="#">Reply</a></small></p>
+                <a href="#" class="comment-answers-btn" style="color:#8B4513;">{{ comment.children.count }} comments</a> {% if comment.user.username != request.user.username and request.user.is_authenticated %} |  <a style="color:#800000;" class="comment-reply-btn" href="#">Reply</a>{%endif %}</small></p>
             <p>{{ comment.content }}</p>
 
             <div class="form-reply" style="display:none;">
