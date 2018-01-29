@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.contrib.contenttypes.models import ContentType
 from django.http import Http404
 from django.http import HttpResponse, HttpResponseRedirect
@@ -16,9 +17,8 @@ from .forms import PostForm
 from .models import Post
 
 # Create your views here.
+@login_required(login_url='/login/')
 def post_create(request):
-    if not request.user.is_staff or not request.user.is_superuser:
-        raise Http404
     form = PostForm(request.POST or None, request.FILES or None)
     if form.is_valid():
         instance = form.save(commit=False)

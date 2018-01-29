@@ -49,12 +49,19 @@
     </script>
 
     <div>
+        {% if request.user.is_authenticated %}
         <p class="text-left">Опубликовать комментарий</p>
         <form class="text-left" method="POST" action="."> {% csrf_token %}
             {{ comment_form|crispy }}
             <br/>
             <input type="submit" value="Опубликовать" class="btn btn-info">
         </form>
+        {% else %}
+        <p class="text-left">Войдите, чтобы оставить комментарий</p>
+        <a href="/login">Войти</a>
+        <br/>
+        <br/>
+        {% endif %}
         <h3>Комментарии</h3>
         <hr/>
         {% for comment in comments %}

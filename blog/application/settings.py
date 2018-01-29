@@ -25,7 +25,7 @@ SECRET_KEY = '_ksjf2-e0=d893@8orepd89&(f4vx_@nu#26+skkt!g6#d$@2j'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['still-woodland-14305.herokuapp.com', 'localhost']
 
 
 # Application definition

@@ -11,6 +11,9 @@
     margin-left: 5px;
     margin-right: 5px;
 }
+.btn-margin2 {
+    margin-left: 25px;
+}
 .btn-new-post {
     margin: 10px;
 }
@@ -34,10 +37,20 @@
     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
   </form>
 
+    {% if request.user.is_authenticated %}
+      <div>
+          <span class="btn-margin2">Пользователь: {{ request.user.username }}</span>
+          <a class="btn-margin2" href="/logout/">Log Out</a>
+      </div>
+
+      {% else %}
+      <a class="btn-margin2" href="/login/">Log In</a>
+      {% endif %}
+
   <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0"></ul>
     <form class="form-inline my-2 my-lg-0">
-        <a href="/posts/create" role="button"
+        <a href="/create/" role="button"
               class="btn btn-info my-2 my-sm-0">Новый пост</a>
     </form>
   </div>
@@ -49,19 +62,19 @@
     <div class="card-body">
         <h3><a href='{{ obj.get_absolute_url }}'>{{ obj.title }}</a></h3>
         <img class="image-style" src="{{ obj.image.url }}">
-        {% if instance.user.get_full_name %}
-        <div class="text-left"><p><small>Автор: {{ instance.user.get_full_name }}</small></p></div>
-        {% endif %}
+        <div class="text-left"><p><small>Автор: {{ obj.user.username }}</small></p></div>
         <div class="text-left"><p><small>Создан: {{ obj.timestamp }}</small></p></div>
         <div class="text-left"><p><small>Последнее обновление: {{ obj.updated }}</small></p></div>
         <div class="text-left"><p>{{ obj.content|linebreaks|truncatechars:200 }}</p></div>
         <div class="button-cont" align="right">
             <a href="{{ obj.get_absolute_url }}" role="button"
               class="btn btn-outline-success btn-sm btn-margin">Подробнее</a>
+            {% if obj.user.username == request.user.username %}
             <a href="{{ obj.delete_post }}" role="button"
               class="btn btn-outline-danger btn-sm btn-margin">Удалить пост</a>
             <a href="{{ obj.edit_post }}" role="button"
               class="btn btn-outline-primary btn-sm btn-margin">Редактировать</a>
+            {% endif %}
         </div>
     </div>
 </div>
